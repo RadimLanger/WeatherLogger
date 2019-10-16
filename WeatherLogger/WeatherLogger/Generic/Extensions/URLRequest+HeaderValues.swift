@@ -10,6 +10,11 @@ import Foundation
 
 extension URLRequest {
 
+    init(url: URL, httpMethod: HttpMethod) {
+        self.init(url: url)
+        self.httpMethod = httpMethod.rawValue
+    }
+
     mutating func addJsonContentType() {
         self.addValue("application/json", forHTTPHeaderField: "Content-Type")
     }
@@ -19,7 +24,8 @@ extension URLRequest {
     }
 
     private func preparePostParameters(_ parameters: [String: Any]) -> Data {
-        guard let encodedParameters = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        guard
+            let encodedParameters = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
         else {
             return Data()
         }
