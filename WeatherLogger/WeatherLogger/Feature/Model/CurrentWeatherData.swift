@@ -8,7 +8,7 @@
 
 struct CurrentWeatherData: Codable {
     let cod: String
-    let message: Int
+    let message: Double
     let cnt: Int
     let list: [List]
     let city: City
@@ -26,10 +26,10 @@ struct CurrentWeatherData: Codable {
         let name: String
         let coord: Coord
         let country: String
-        let population: Int
-        let timezone: Int
-        let sunrise: Int
-        let sunset: Int
+        let population: Double
+        let timezone: Double
+        let sunrise: Double
+        let sunset: Double
 
         struct Coord: Codable {
             let lat: Double
@@ -38,7 +38,7 @@ struct CurrentWeatherData: Codable {
     }
 
     struct List: Codable {
-        let dt: Int
+        let dt: Int64
         let main: Main
         let weather: [Weather]
         let clouds: Clouds
@@ -64,8 +64,8 @@ struct CurrentWeatherData: Codable {
             let temp: Double
             let tempMin: Double?
             let tempMax: Double?
-            let pressure: Int
-            let seaLevel: Int
+            let pressure: Double
+            let seaLevel: Double
             let grndLevel: Double
             let humidity: Int
             let tempKf: Double

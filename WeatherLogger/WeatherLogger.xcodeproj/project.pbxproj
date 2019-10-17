@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9328E232358F16A0009E924 /* CurrentWeatherTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9328E222358F16A0009E924 /* CurrentWeatherTableDataSource.swift */; };
+		D94043E52358D4EB007F7854 /* CurrentWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = D94043E32358D433007F7854 /* CurrentWeatherView.m */; };
+		D94841362358D1C6000337F3 /* CurrentWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94841352358D1C6000337F3 /* CurrentWeatherViewController.swift */; };
 		D960E06E23578F0200577E17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960E06D23578F0200577E17 /* AppDelegate.swift */; };
 		D960E07423578F0800577E17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D960E07323578F0800577E17 /* Assets.xcassets */; };
 		D960E07A23578F0800577E17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D960E07823578F0800577E17 /* LaunchScreen.storyboard */; };
@@ -45,6 +48,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D9328E222358F16A0009E924 /* CurrentWeatherTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherTableDataSource.swift; sourceTree = "<group>"; };
+		D94043E12358D432007F7854 /* WeatherLogger-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeatherLogger-Bridging-Header.h"; sourceTree = "<group>"; };
+		D94043E22358D433007F7854 /* CurrentWeatherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentWeatherView.h; sourceTree = "<group>"; };
+		D94043E32358D433007F7854 /* CurrentWeatherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentWeatherView.m; sourceTree = "<group>"; };
+		D94841352358D1C6000337F3 /* CurrentWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewController.swift; sourceTree = "<group>"; };
 		D960E06A23578F0200577E17 /* WeatherLogger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherLogger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D960E06D23578F0200577E17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D960E07323578F0800577E17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,6 +104,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D94841372358D1EB000337F3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D94043E22358D433007F7854 /* CurrentWeatherView.h */,
+				D94043E32358D433007F7854 /* CurrentWeatherView.m */,
+				D94841352358D1C6000337F3 /* CurrentWeatherViewController.swift */,
+				D9328E222358F16A0009E924 /* CurrentWeatherTableDataSource.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D960E06123578F0200577E17 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +143,7 @@
 				D960E0A22357908400577E17 /* Generic */,
 				D960E09D23578FE000577E17 /* AppStartup */,
 				D960E07323578F0800577E17 /* Assets.xcassets */,
+				D94043E12358D432007F7854 /* WeatherLogger-Bridging-Header.h */,
 				D960E07B23578F0800577E17 /* Info.plist */,
 			);
 			path = WeatherLogger;
@@ -199,6 +219,7 @@
 		D960E0B82357A3D000577E17 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				D94841372358D1EB000337F3 /* View */,
 				D960E0BB2357A3F900577E17 /* Model */,
 				D960E0BC2357A40600577E17 /* Remote */,
 			);
@@ -298,6 +319,7 @@
 				TargetAttributes = {
 					D960E06923578F0200577E17 = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1100;
 					};
 					D960E07F23578F0900577E17 = {
 						CreatedOnToolsVersion = 11.0;
@@ -362,6 +384,7 @@
 			files = (
 				D960E0C32357ABA800577E17 /* Dependencies.swift in Sources */,
 				D960E0A12357904F00577E17 /* AppCoordinator.swift in Sources */,
+				D9328E232358F16A0009E924 /* CurrentWeatherTableDataSource.swift in Sources */,
 				D960E0B22357913100577E17 /* HttpClientError.swift in Sources */,
 				D960E0B32357913100577E17 /* RequestExecutionError.swift in Sources */,
 				D960E0AE2357913100577E17 /* HttpClientResponse.swift in Sources */,
@@ -371,7 +394,9 @@
 				D960E0C12357A8BF00577E17 /* Configuration.swift in Sources */,
 				D960E0B42357913100577E17 /* HttpClientImpl.swift in Sources */,
 				D960E0BE2357A46C00577E17 /* CurrentWeatherRemoteResource.swift in Sources */,
+				D94841362358D1C6000337F3 /* CurrentWeatherViewController.swift in Sources */,
 				D960E0B7235791C200577E17 /* URLRequest+HeaderValues.swift in Sources */,
+				D94043E52358D4EB007F7854 /* CurrentWeatherView.m in Sources */,
 				D960E0A42357909400577E17 /* Coordinator.swift in Sources */,
 				D960E0BA2357A3F100577E17 /* CurrentWeatherData.swift in Sources */,
 			);
@@ -538,6 +563,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WeatherLogger/Info.plist;
@@ -548,6 +574,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Accenture.WeatherLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeatherLogger/WeatherLogger-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -557,6 +585,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WeatherLogger/Info.plist;
@@ -567,6 +596,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Accenture.WeatherLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeatherLogger/WeatherLogger-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
