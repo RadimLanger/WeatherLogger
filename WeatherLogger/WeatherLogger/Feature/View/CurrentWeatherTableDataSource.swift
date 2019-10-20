@@ -35,6 +35,11 @@ final class CurrentWeatherTableDataSource: TableDataSource<CurrentWeatherDataSou
         }
     }
 
+    override init() {
+        super.init()
+        sections = [Section(items: [])]
+    }
+
     private func configure() {
 
         let weatherItems = weatherData.map(CurrentWeatherDataSourceItem.weather)
