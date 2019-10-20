@@ -6,32 +6,6 @@
 //  Copyright © 2019 Accenture. All rights reserved.
 //
 
-import UIKit
-
-extension UILabel {
-
-    convenience init(
-        textColor: UIColor? = nil,
-        textAlignment: NSTextAlignment = .left,
-        font: UIFont? = nil,
-        numberOfLines: Int = 1
-    ) { // todo: add elsewhere
-        self.init()
-
-        if let font = font {
-            self.font = font
-        }
-
-        if let textColor = textColor {
-            self.textColor = textColor
-        }
-
-        self.textColor = textColor
-        self.textAlignment = textAlignment
-        self.numberOfLines = numberOfLines
-    }
-}
-
 final class CurrentWeatherTableCell: UITableViewCell {
 
     private let temperatureLabel = UILabel(
@@ -64,7 +38,7 @@ final class CurrentWeatherTableCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        accessibilityIdentifier = AccessibilityIdentifier.currentWeatherCell.rawValue
         [
             cityLabel,
             descriptionLabel,
@@ -74,8 +48,6 @@ final class CurrentWeatherTableCell: UITableViewCell {
         contentView.addAutoLayoutSubviews(verticalStackView, temperatureLabel)
         setNeedsUpdateConstraints()
     }
-
-    override var isSelected: Bool { didSet { return } }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

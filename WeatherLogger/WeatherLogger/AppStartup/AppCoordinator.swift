@@ -12,7 +12,7 @@ final class AppCoordinator: Coordinator {
 
     private let window = UIWindow(frame: UIScreen.main.bounds)
     private let dependencies = Dependencies()
-    private let weatherController = CurrentWeatherViewController()
+    private var weatherController = CurrentWeatherViewController()
     private let weatherCache = CodableCache<[CurrentWeatherData]>()
 
     private var didTriggerCurrentWeatherDataLoading = false
@@ -21,6 +21,11 @@ final class AppCoordinator: Coordinator {
     private lazy var navigationController = UINavigationController(rootViewController: weatherController)
 
     func start() {
+
+        if ProcessInfo.processInfo.arguments.contains("--ResetForUITesting") {
+            weatherCache.data = []
+        }   
+
         weatherController.delegate = self
         dependencies.locationProvider.delegate = self
 
@@ -30,7 +35,7 @@ final class AppCoordinator: Coordinator {
         weatherController.configureAndReloadUI(with: weatherCache.data ?? [])
     }
 
-    private func fetchCurrentWeatherData(searchParameter: CurrentWeatherQuery.SearchParameter ) { // todo:
+    private func fetchCurrentWeatherData(searchParameter: CurrentWeatherQuery.SearchParameter ) {
         DispatchQueue.main.async {
             self.weatherController.updateLoading(to: true)
         }
@@ -53,6 +58,8 @@ final class AppCoordinator: Coordinator {
     }
 
     private func storeNewWeatherDataAndShowInUI(data: CurrentWeatherData) {
+        var data = data
+        data.recievedTimeStamp = Date()
         let newDataToStore = [data] + (weatherCache.data ?? [])
         weatherCache.data = newDataToStore
         DispatchQueue.main.async {
@@ -60,9 +67,23 @@ final class AppCoordinator: Coordinator {
             self.weatherController.updateLoading(to: false)
         }
     }
+
+    private func showDetail(of data: CurrentWeatherData) {
+        let controller = WeatherDetaiViewController(weatherData: data)
+        controller.delegate = self
+        navigationController.pushViewController(controller, animated: true)
+    }
 }
 
 extension AppCoordinator: CurrentWeatherViewControllerDelegate {
+
+    func currentWeatherViewController(
+        _ controller: CurrentWeatherViewController,
+        didSelect weatherData: CurrentWeatherData
+    ) {
+        showDetail(of: weatherData)
+    }
+
     func currentWeatherViewControllerDidTapSaveButton(_ controller: CurrentWeatherViewController) {
 
         didTriggerCurrentWeatherDataLoading = true
@@ -74,6 +95,18 @@ extension AppCoordinator: CurrentWeatherViewControllerDelegate {
         } else {
             askForLocationPermitionsIfNotEnabled()
         }
+    }
+}
+
+extension AppCoordinator: WeatherDetaiViewControllerDelegate {
+
+    func weatherDetaiViewControllerDidTapDeleteButton(
+        _ controller: WeatherDetaiViewController,
+        with data: CurrentWeatherData
+    ) {
+        navigationController.popViewController(animated: true)
+        weatherCache.data?.removeAll(where: { $0 == data })
+        weatherController.configureAndReloadUI(with: weatherCache.data ?? [])
     }
 }
 

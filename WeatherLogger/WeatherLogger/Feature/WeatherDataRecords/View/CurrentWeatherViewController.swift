@@ -10,6 +10,10 @@ import UIKit
 
 protocol CurrentWeatherViewControllerDelegate: AnyObject {
     func currentWeatherViewControllerDidTapSaveButton(_ controller: CurrentWeatherViewController)
+    func currentWeatherViewController(
+        _ controller: CurrentWeatherViewController,
+        didSelect weatherData: CurrentWeatherData
+    )
 }
 
 final class CurrentWeatherViewController: UIViewController {
@@ -17,7 +21,7 @@ final class CurrentWeatherViewController: UIViewController {
     weak var delegate: CurrentWeatherViewControllerDelegate?
 
     private let rootView = CurrentWeatherView()
-    private let tableViewDataSource = CurrentWeatherTableDataSource() // todo: later unit tests
+    private let tableViewDataSource = CurrentWeatherTableDataSource()
     private var tableView: UITableView { rootView.tableView }
 
     override func loadView() {
@@ -27,7 +31,7 @@ final class CurrentWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = NSLocalizedString("Saved weather logs", comment: "") // todo: craete localized strings
+        title = NSLocalizedString("Weather records", comment: "") 
 
         rootView.tableView.dataSource = tableViewDataSource
         rootView.tableView.delegate = self
@@ -54,5 +58,8 @@ extension CurrentWeatherViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+
+        guard case .weather(let weatherData) = tableViewDataSource.item(at: indexPath) else { return }
+        delegate?.currentWeatherViewController(self, didSelect: weatherData)
     }
 }

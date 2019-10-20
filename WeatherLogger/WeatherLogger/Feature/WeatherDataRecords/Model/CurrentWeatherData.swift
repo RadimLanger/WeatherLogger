@@ -8,6 +8,7 @@
 
 // MARK: - CurrentWeatherData
 struct CurrentWeatherData: Codable, Equatable {
+    var recievedTimeStamp: Date?
     let coord: Coord
     let weather: [Weather]
     let base: String

@@ -32,6 +32,7 @@
         [self.saveButton setTitle:@"Save" forState:UIControlStateNormal];
         self.saveButton.clipsToBounds = YES;
         [self.saveButton.layer setCornerRadius:11];
+        self.saveButton.accessibilityIdentifier = @"currentWeatherViewSaveButton";
     }
 
     [self setNeedsUpdateConstraints];

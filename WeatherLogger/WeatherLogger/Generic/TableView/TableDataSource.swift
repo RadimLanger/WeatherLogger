@@ -37,6 +37,18 @@ class TableDataSource<Item>: NSObject, UITableViewDataSource {
         fatalError("⚠️ Implement in subclass!")
     }
 
+    func item(at indexPath: IndexPath) -> Item? {
+
+        guard
+            case 0 ..< sections.count = indexPath.section,
+            case 0 ..< sections[indexPath.section].items.count = indexPath.item
+        else {
+            return nil
+        }
+
+        return sections[indexPath.section].items[indexPath.item]
+    }
+
     // MARK: - Setting TableView DataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
