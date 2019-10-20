@@ -13,7 +13,7 @@
 		D960E06E23578F0200577E17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960E06D23578F0200577E17 /* AppDelegate.swift */; };
 		D960E07423578F0800577E17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D960E07323578F0800577E17 /* Assets.xcassets */; };
 		D960E07A23578F0800577E17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D960E07823578F0800577E17 /* LaunchScreen.storyboard */; };
-		D960E08523578F0900577E17 /* WeatherLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960E08423578F0900577E17 /* WeatherLoggerTests.swift */; };
+		D960E08523578F0900577E17 /* CurrentWeatherTableDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960E08423578F0900577E17 /* CurrentWeatherTableDataSourceTests.swift */; };
 		D960E09023578F0900577E17 /* WeatherLoggerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960E08F23578F0900577E17 /* WeatherLoggerUITests.swift */; };
 		D960E0A12357904F00577E17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960E0A02357904F00577E17 /* AppCoordinator.swift */; };
 		D960E0A42357909400577E17 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960E0A32357909400577E17 /* Coordinator.swift */; };
@@ -69,7 +69,7 @@
 		D960E07923578F0800577E17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D960E07B23578F0800577E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D960E08023578F0900577E17 /* WeatherLoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherLoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D960E08423578F0900577E17 /* WeatherLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLoggerTests.swift; sourceTree = "<group>"; };
+		D960E08423578F0900577E17 /* CurrentWeatherTableDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherTableDataSourceTests.swift; sourceTree = "<group>"; };
 		D960E08623578F0900577E17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D960E08B23578F0900577E17 /* WeatherLoggerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherLoggerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D960E08F23578F0900577E17 /* WeatherLoggerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLoggerUITests.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 		D960E08323578F0900577E17 /* WeatherLoggerTests */ = {
 			isa = PBXGroup;
 			children = (
-				D960E08423578F0900577E17 /* WeatherLoggerTests.swift */,
+				D960E08423578F0900577E17 /* CurrentWeatherTableDataSourceTests.swift */,
 				D960E08623578F0900577E17 /* Info.plist */,
 			);
 			path = WeatherLoggerTests;
@@ -470,7 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D960E08523578F0900577E17 /* WeatherLoggerTests.swift in Sources */,
+				D960E08523578F0900577E17 /* CurrentWeatherTableDataSourceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
