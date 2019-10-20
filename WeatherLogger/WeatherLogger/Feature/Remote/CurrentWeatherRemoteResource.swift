@@ -17,15 +17,14 @@ final class CurrentWeatherRemoteResource: NSObject {
         self.httpClient = httpClient
     }
 
-    func fetchCurrentWeatherData(completion: @escaping (Result<CurrentWeatherData, RequestExecutionError>) -> Void) {
-        // todo: rename configuration url
-        guard let url = URL(string: Configuration.urlString), isLoading == false else { return }
-
-        var request = URLRequest(url: url, httpMethod: .get)
-        request.addJsonContentType()
+    func fetchCurrentWeatherData(
+        for query: CurrentWeatherQuery,
+        completion: @escaping (Result<CurrentWeatherData, RequestExecutionError>) -> Void
+    ) {
+        guard isLoading == false else { return }
         isLoading = true
-
-        httpClient.execute(request: request, CurrentWeatherData.self, completion: { [weak self] result in
+        
+        httpClient.execute(apiQuery: query, CurrentWeatherData.self, completion: { [weak self] result in
             completion(result)
             self?.isLoading = false
         })

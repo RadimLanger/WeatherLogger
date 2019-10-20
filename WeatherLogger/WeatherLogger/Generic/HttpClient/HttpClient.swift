@@ -7,12 +7,12 @@ import Foundation
 protocol HttpClient {
 
     func plainExecute(
-        request: URLRequest,
+        apiQuery: APIQuery,
         completion: @escaping ((Result<HttpClientResponse, HttpClientError>) -> Void)
     )
 
     func execute<StructResult: Decodable>(
-        request: URLRequest,
+        apiQuery: APIQuery,
         _ expectedType: StructResult.Type,
         completion: @escaping ((Result<StructResult, RequestExecutionError>) -> Void)
     )

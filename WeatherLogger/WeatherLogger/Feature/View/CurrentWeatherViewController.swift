@@ -39,8 +39,13 @@ final class CurrentWeatherViewController: UIViewController {
         delegate?.currentWeatherViewControllerDidTapSaveButton(self)
     }
 
-    func configure(with weatherData: [CurrentWeatherData]) {
+    func configureAndReloadUI(with weatherData: [CurrentWeatherData]) {
         tableViewDataSource.weatherData = weatherData
+        rootView.tableView.reloadData()
+    }
+
+    func updateLoading(to isLoading: Bool) {
+        tableViewDataSource.isLoading = isLoading
         rootView.tableView.reloadData()
     }
 }
@@ -48,6 +53,8 @@ final class CurrentWeatherViewController: UIViewController {
 extension CurrentWeatherViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        tableView.deselectRow(at: indexPath, animated: false)
     }
+
+
 }

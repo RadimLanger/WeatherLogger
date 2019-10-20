@@ -20,6 +20,11 @@
         self.saveButton = [UIButton new];
 
         self.tableView.backgroundColor = UIColor.greenColor;
+        self.tableView.tableFooterView = [UIView new];
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
+        self.tableView.estimatedRowHeight = 44;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
         self.saveButton.backgroundColor = UIColor.blueColor;
         [self addSubview:self.tableView];
         [self addSubview:self.saveButton];
@@ -42,7 +47,7 @@
     if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) { // todo:
 
     }
-
+    
     [self.tableView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.saveButton setTranslatesAutoresizingMaskIntoConstraints:NO];
 

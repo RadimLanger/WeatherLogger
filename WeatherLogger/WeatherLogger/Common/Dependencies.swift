@@ -9,5 +9,6 @@
 import Foundation
 
 struct Dependencies {
-    let httpClient: HttpClient = HttpClientImpl(urlSession: URLSession.shared) 
+    let httpClient: HttpClient = HttpClientImpl(urlSession: URLSession.shared)
+    let locationProvider = LocationProvider()
 }

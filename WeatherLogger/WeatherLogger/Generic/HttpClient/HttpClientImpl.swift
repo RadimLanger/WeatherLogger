@@ -12,11 +12,25 @@ final class HttpClientImpl: HttpClient {
         self.urlSession = urlSession
     }
 
+    private func toggleStatusBarActivityIndicator(_ toggle: Bool) {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = toggle
+        }
+    }
+
     func plainExecute(
-        request: URLRequest,
+        apiQuery: APIQuery,
         completion: @escaping ((Result<HttpClientResponse, HttpClientError>) -> Void)
     ) {
+
+        guard let request = apiQuery.request else { return }
+
+        toggleStatusBarActivityIndicator(true)
+
         urlSession.dataTask(with: request) {(data, httpResponse, error) in
+
+            self.toggleStatusBarActivityIndicator(false)
+
             guard let httpResponse = httpResponse as? HTTPURLResponse else {
                 if let error = error {
                     completion(Result.failure(HttpClientError.dataTaskError(underlying: error)))
@@ -31,11 +45,12 @@ final class HttpClientImpl: HttpClient {
     }
 
     func execute<StructResult: Decodable>(
-        request: URLRequest,
+        apiQuery: APIQuery,
         _ expectedType: StructResult.Type,
         completion: @escaping ((Result<StructResult, RequestExecutionError>) -> Void)
     ) {
-        self.plainExecute(request: request) { result in
+
+        self.plainExecute(apiQuery: apiQuery) { result in
             switch result {
                 case .success(let response):
 

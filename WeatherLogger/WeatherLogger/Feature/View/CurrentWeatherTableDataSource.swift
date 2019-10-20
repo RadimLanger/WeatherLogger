@@ -6,38 +6,20 @@
 //  Copyright © 2019 Accenture. All rights reserved.
 //
 
-final class CurrentWeatherTableDataSource: NSObject, UITableViewDataSource {
+enum CurrentWeatherDataSourceItem: Equatable {
+    case weather(CurrentWeatherData)
+    case separator
+    case loadingIndicator
+}
 
-    // MARK: - Definition of section, items and configurator
+final class CurrentWeatherTableDataSource: TableDataSource<CurrentWeatherDataSourceItem> {
 
-    enum CurrentWeatherItem {
-        case weather(CurrentWeatherData)
-    }
-
-    struct TableViewSection {
-        var items: [CurrentWeatherItem]
-    }
-
-    struct CollectionCellDescriptor {
-
-        public let cellClass: UITableViewCell.Type
-        public let configure: ((UITableViewCell) -> Void)?
-
-        public init<Cell: UITableViewCell>(cellClass: Cell.Type, configure: ((Cell) -> Void)? = nil) {
-
-            self.cellClass = cellClass
-
-            if let configure = configure {
-                self.configure = { cell in (cell as? Cell).map(configure) }
-            } else {
-                self.configure = nil
-            }
-        }
-    }
-
-    // MARK: - Setting data
-
-    var sections = [TableViewSection]()
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        formatter.timeZone = TimeZone(abbreviation: "GMT")!
+        return formatter
+    }()
 
     var weatherData: [CurrentWeatherData] = [] {
         didSet {
@@ -45,40 +27,49 @@ final class CurrentWeatherTableDataSource: NSObject, UITableViewDataSource {
         }
     }
 
-    private func configure() {
-        sections = [.init(items: weatherData.map(CurrentWeatherItem.weather))]
+    var isLoading = false {
+        didSet {
+            sections[0].items.removeAll(where: { $0 == .loadingIndicator })
+            guard isLoading else { return }
+            sections[0].items = [.loadingIndicator] + sections[0].items
+        }
     }
 
-    private func cellDescriptor(for item: CurrentWeatherItem) -> CollectionCellDescriptor {
+    private func configure() {
+
+        let weatherItems = weatherData.map(CurrentWeatherDataSourceItem.weather)
+        let weatherItemsWithSeparators = weatherItems.interspersed(with: .separator)
+        sections = [.init(items: weatherItemsWithSeparators)]
+    }
+
+    override func cellDescriptor(for item: CurrentWeatherDataSourceItem) -> TableCellDescriptor {
         switch item {
-            case .weather(let currentWeatherData): return currentWeatherDataCellDescriptor(for: currentWeatherData)
+            case .weather(let currentWeatherData):  return currentWeatherDataCellDescriptor(for: currentWeatherData)
+            case .separator:                        return separatorDecriptor
+            case .loadingIndicator:                 return loadingIndicatorDescriptor
         }
     }
 
     private func currentWeatherDataCellDescriptor(
         for currentWeatherData: CurrentWeatherData
-    ) -> CollectionCellDescriptor {
-        return .init(cellClass: UITableViewCell.self) { cell in
-            cell.textLabel?.text = String(describing: currentWeatherData.list.first?.main.temp)
+    ) -> TableCellDescriptor {
+        return .init(cellClass: CurrentWeatherTableCell.self) { cell in
+
+            let loggedTimeStamp = currentWeatherData.dt + currentWeatherData.timezone
+            let dateString = self.dateFormatter.string(from: .init(timeIntervalSince1970: .init(loggedTimeStamp)))
+
+            cell.configure(
+                temperature: "\(currentWeatherData.main.temp) °C",
+                city: currentWeatherData.name,
+                date: dateString,
+                description: (currentWeatherData.weather.first?.description ?? "").withCapitalizedFirstLetter()
+            )
         }
     }
 
-    // MARK: - Setting TableView DataSource
+    private let separatorDecriptor = SeparatorTableCell.descriptor(
+        withInsets: .init(top: 0, left: 8, bottom: 0, right: 8)
+    )
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let item = sections[indexPath.section].items[indexPath.row]
-        let descriptor = cellDescriptor(for: item)
-        let reuseIdentifier = String(describing: descriptor.cellClass)
-        tableView.register(descriptor.cellClass, forCellReuseIdentifier: reuseIdentifier)
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-
-        descriptor.configure?(cell)
-
-        return cell
-    }
+    private let loadingIndicatorDescriptor = LoadingTableCell.descriptor(color: .orange)
 }
